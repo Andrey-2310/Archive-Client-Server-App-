@@ -74,7 +74,7 @@ public class ChangingParser extends Shell {
 		btnStax.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "STAX", null, null)).isSuccess())
+				if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "StAX", null, null)).isSuccess())
 					ServerStart.loggerServer.info(new String("Changing Parser  to StAX succeeded"));
 				else 
 					ServerStart.loggerServer.info(new String("Changing Parser to StAX didn't succeed"));
@@ -104,10 +104,10 @@ public class ChangingParser extends Shell {
 		btnJdom.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
-				/*if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "JDOM", null, null)).isSuccess())
+				if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "JDOM", null, null)).isSuccess())
 					ServerStart.loggerServer.info(new String("Changing Parser  to JDOM succeeded"));
 				else 
-					ServerStart.loggerServer.info(new String("Changing Parser to JDOM didn't succeed"));*/
+					ServerStart.loggerServer.info(new String("Changing Parser to JDOM didn't succeed"));
 				getShell().close();
 			}
 		});

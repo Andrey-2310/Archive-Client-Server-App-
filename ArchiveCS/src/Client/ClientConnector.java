@@ -127,10 +127,7 @@ public class ClientConnector {
 
 		String authorization = new String();
 		authorization = read(authorization);
-		System.out.println(authorization);
-		if (authorization.equals("wrong user")) {
-			return null;
-		} else if (authorization.equals("admin")) {
+		 if (authorization.equals("admin")) {
 			isAdmin = true;
 
 		} else if (authorization.equals("guest")) {

@@ -7,6 +7,7 @@ import java.util.Vector;
 import ParsersXML.LoadData;
 import ParsersXML.UsedParses;
 import ParsersXML.Parsers.DOMParser;
+import ParsersXML.Parsers.JDOMParser;
 import ParsersXML.Parsers.SAXParser;
 import ParsersXML.Parsers.StAXParser;
 import Person.Person;
@@ -93,9 +94,6 @@ public class Cataloguer {
 			cataloger.addElement(parse(files.nextElement()));
 		}
 		ServerStart.loggerServer.info(new String("Request to get all data is served"));
-		for (Person pers : cataloger)
-			System.out.println(pers.getName() + " ");
-
 		return new Response(Requests.SHOW_ALL, cataloger, null, true);
 	}
 
@@ -133,11 +131,12 @@ public class Cataloguer {
 		return usedParser;
 	}
 
-	/*
-	 * @UsedParses("JDOMParser") public static LoadData useJDOMParser() {
-	 * ServerMain.loggerServer.info(new String("Parser changed to JDOM"));
-	 * usedParser = new JDOMParser(); return usedParser; }
-	 */
+	@UsedParses("JDOMParser")
+	public static LoadData useJDOMParser() {
+		ServerStart.loggerServer.info(new String("Parser changed to JDOM"));
+		usedParser = new JDOMParser();
+		return usedParser;
+	}
 
 	/**
 	 * Find by phone.
@@ -292,6 +291,9 @@ public class Cataloguer {
 			break;
 		case "DOM":
 			usedParser = useDOMParser();
+			break;
+		case "JDOM":
+			usedParser = useJDOMParser();
 			break;
 		default:
 			return new Response(Requests.CHANGE_PARSER, null, null, false);

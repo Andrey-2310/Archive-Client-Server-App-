@@ -12,8 +12,6 @@ import ParsersXML.LoadData;
 import Person.Person;
 import Server.ServerStart;
 
-
-
 /**
  * The Class SAXParser.
  */
@@ -48,8 +46,10 @@ class Handler extends DefaultHandler {
 
 	@Override
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
-		if (qName.equalsIgnoreCase("person")) {
-			ServerStart.loggerServer.info("Start Element : person");
+		if (qName.equalsIgnoreCase("personInfo")) {
+			ServerStart.loggerServer.info("Start Element : personInfo");
+		} else if (qName.equalsIgnoreCase("personJob")) {
+			ServerStart.loggerServer.info("Start Element : personJob");
 		} else if (qName.equalsIgnoreCase("surname")) {
 			bSurname = true;
 		} else if (qName.equalsIgnoreCase("name")) {
@@ -75,6 +75,9 @@ class Handler extends DefaultHandler {
 	public void endElement(String uri, String localName, String qName) throws SAXException {
 		if (qName.equalsIgnoreCase("person")) {
 			ServerStart.loggerServer.info("End Element : person");
+		}
+		if (qName.equalsIgnoreCase("personJob")) {
+			ServerStart.loggerServer.info("End Element : personJob");
 		}
 	}
 

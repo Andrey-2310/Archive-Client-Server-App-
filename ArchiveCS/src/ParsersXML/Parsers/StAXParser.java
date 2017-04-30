@@ -56,8 +56,10 @@ public class StAXParser extends LoadData {
 				case XMLStreamConstants.START_ELEMENT:
 					StartElement startElement = event.asStartElement();
 					String qName = startElement.getName().getLocalPart();
-					if (qName.equalsIgnoreCase("person")) {
-						ServerStart.loggerServer.info("Start Element : person");
+					if (qName.equalsIgnoreCase("personInfo")) {
+						ServerStart.loggerServer.info("Start Element : personInfo");
+					} else if (qName.equalsIgnoreCase("personJob")) {
+						ServerStart.loggerServer.info("Start Element : personJob");
 					} else if (qName.equalsIgnoreCase("surname")) {
 						bSurname = true;
 					} else if (qName.equalsIgnoreCase("name")) {
@@ -123,8 +125,8 @@ public class StAXParser extends LoadData {
 				// catches closing tag of an element
 				case XMLStreamConstants.END_ELEMENT:
 					EndElement endElement = event.asEndElement();
-					if (endElement.getName().getLocalPart().equalsIgnoreCase("person")) {
-						ServerStart.loggerServer.info("End Element : person");
+					if (endElement.getName().getLocalPart().equalsIgnoreCase("personInfo")) {
+						ServerStart.loggerServer.info("End Element : personInfo");
 					}
 					if (endElement.getName().getLocalPart().equalsIgnoreCase("personJob")) {
 						ServerStart.loggerServer.info("End Element : personJob");

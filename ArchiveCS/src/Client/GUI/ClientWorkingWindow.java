@@ -48,13 +48,7 @@ public class ClientWorkingWindow extends Shell {
 	 * @param args
 	 */
 	public static void workingWindowStart(String userRole, ClientConnector connector) {
-		// public static void main(String args[]) {
-
-		// try {
 		Display display = Display.getDefault();
-
-		// ClientWorkingWindow shell = new ClientWorkingWindow(display,"Admin",
-		// null);
 		ClientWorkingWindow shell = new ClientWorkingWindow(display, userRole, connector);
 		shell.open();
 		shell.layout();
@@ -62,10 +56,7 @@ public class ClientWorkingWindow extends Shell {
 			if (!display.readAndDispatch()) {
 				display.sleep();
 			}
-		}
-		/*
-		 * } catch (Exception e) { e.printStackTrace(); }
-		 */
+		}	
 	}
 
 	/**
@@ -76,7 +67,7 @@ public class ClientWorkingWindow extends Shell {
 	public ClientWorkingWindow(Display display, String userRole, final ClientConnector connector) {
 
 		super(display, SWT.SHELL_TRIM);
-		setSize(1000, 449);
+		//setSize(1021, 449);
 		setMinimumSize(new Point(170, 39));
 		setBackground(SWTResourceManager.getColor(204, 204, 204));
 
@@ -85,18 +76,18 @@ public class ClientWorkingWindow extends Shell {
 		final Table table_1 = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		final Table table = new Table(composite, SWT.BORDER | SWT.FULL_SELECTION);
 		table_1.setVisible(false);
-		/*
-		 * if (!connector.isAdmin()) composite.setBounds(0, 0, 710, 400); else {
-		 */
+
+		/*  if (!connector.isAdmin()) composite.setBounds(0, 0, 745, 410); 
+		  else {*/
 		table_1.setVisible(true);
 		final Button btnNewButton_3 = new Button(composite, SWT.NONE);
 		btnNewButton_3.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
 		btnNewButton_3.setEnabled(false);
-		btnNewButton_3.setBounds(758, 316, 134, 25);
+		btnNewButton_3.setBounds(806, 316, 134, 25);
 		btnNewButton_3.setText("Change Role");
 
-		composite.setBounds(0, 0, 1000, 410);
-		table_1.setBounds(699, 66, 250, 236);
+		composite.setBounds(0, 0, 1021, 410);
+		table_1.setBounds(745, 66, 250, 236);
 		table_1.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -152,7 +143,7 @@ public class ClientWorkingWindow extends Shell {
 		tblclmnNewColumn.setText("Role");
 
 		// }
-		table.setBounds(10, 66, 673, 236);
+		table.setBounds(27, 66, 706, 236);
 		table.setHeaderVisible(true);
 		table.setLinesVisible(true);
 
@@ -189,11 +180,11 @@ public class ClientWorkingWindow extends Shell {
 		tblclmnPosition.setText("Position");
 
 		TableColumn tblclmnSex = new TableColumn(table, SWT.CENTER);
-		tblclmnSex.setWidth(39);
+		tblclmnSex.setWidth(71);
 		tblclmnSex.setText("Sex");
 
 		textSearch = new Text(composite, SWT.CENTER);
-		textSearch.setBounds(138, 29, 289, 25);
+		textSearch.setBounds(159, 29, 289, 25);
 
 		final Button btnNewButton = new Button(composite, SWT.NONE);
 		btnNewButton.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
@@ -206,8 +197,10 @@ public class ClientWorkingWindow extends Shell {
 
 			}
 		});
-		btnNewButton.setBounds(345, 316, 82, 25);
+		btnNewButton.setBounds(104, 316, 82, 25);
 		btnNewButton.setText("Change");
+		if(connector.isGuest())
+			btnNewButton.setVisible(false);
 
 		final Button btnNewButton_1 = new Button(composite, SWT.NONE);
 		btnNewButton_1.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
@@ -226,8 +219,10 @@ public class ClientWorkingWindow extends Shell {
 				btnNewButton.setEnabled(false);
 			}
 		});
-		btnNewButton_1.setBounds(243, 316, 82, 25);
+		btnNewButton_1.setBounds(223, 316, 82, 25);
 		btnNewButton_1.setText("Delete");
+		if(!connector.isAdmin())
+			btnNewButton_1.setVisible(false);
 
 		table.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -245,17 +240,14 @@ public class ClientWorkingWindow extends Shell {
 				NewPerson.NewPersonStarter(null, connector);
 			}
 		});
-		btnNewButton_2.setBounds(141, 316, 82, 25);
+		btnNewButton_2.setBounds(345, 316, 82, 25);
 		btnNewButton_2.setText("Add");
+		if(!connector.isAdmin())
+			btnNewButton_2.setVisible(false);
 
 		Button btnSearch = new Button(composite, SWT.NONE);
 		btnSearch.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
-		btnSearch.addSelectionListener(new SelectionAdapter() {
-			@Override
-			public void widgetSelected(SelectionEvent e) {
-			}
-		});
-		btnSearch.setBounds(10, 29, 111, 25);
+		btnSearch.setBounds(27, 29, 111, 25);
 		btnSearch.setText("Search");
 		btnSearch.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -267,7 +259,7 @@ public class ClientWorkingWindow extends Shell {
 
 		Image image = new Image(display, "refresh.png");
 		Button btnNewButton_5 = new Button(composite, SWT.NONE);
-		btnNewButton_5.setBounds(10, 317, 38, 25);
+		btnNewButton_5.setBounds(27, 317, 38, 25);
 		btnNewButton_5.setImage(image);
 		btnNewButton_5.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -279,7 +271,7 @@ public class ClientWorkingWindow extends Shell {
 		Image image1 = new Image(display, "left.png");
 		Button btnNewButton_6 = new Button(composite, SWT.NONE);
 		btnNewButton_6.setImage(image1);
-		btnNewButton_6.setBounds(68, 317, 53, 25);
+		btnNewButton_6.setBounds(463, 317, 53, 25);
 		btnNewButton_6.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
@@ -289,12 +281,14 @@ public class ClientWorkingWindow extends Shell {
 						refreshing(connector, table_1, table);
 			}
 		});
+		if(!connector.isAdmin())
+			btnNewButton_6.setVisible(false);
 
 		
 		Button btnNewButton_4 = new Button(composite, SWT.NONE);
 		btnNewButton_4.setForeground(SWTResourceManager.getColor(SWT.COLOR_RED));
 		btnNewButton_4.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
-		btnNewButton_4.setBounds(504, 29, 177, 25);
+		btnNewButton_4.setBounds(556, 29, 177, 25);
 		btnNewButton_4.setText("Exit from client");
 		btnNewButton_4.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -306,7 +300,7 @@ public class ClientWorkingWindow extends Shell {
 		
 		Button btnChangeParser = new Button(composite, SWT.NONE);
 		btnChangeParser.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.BOLD));
-		btnChangeParser.setBounds(504, 316, 179, 25);
+		btnChangeParser.setBounds(556, 316, 177, 25);
 		btnChangeParser.setText("Change Parser");
 		btnChangeParser.addSelectionListener(new SelectionAdapter() {
 			@Override
@@ -314,6 +308,9 @@ public class ClientWorkingWindow extends Shell {
 				ChangingParser.changingParserStart(connector);
 			}
 		});
+		
+		if(!connector.isAdmin())
+			btnChangeParser.setVisible(false);
 		createContents(connector);
 
 		refreshing(connector, table_1, table);
@@ -327,9 +324,9 @@ public class ClientWorkingWindow extends Shell {
 	protected void createContents(ClientConnector connector) {
 		setText("SWT Application");
 		if (connector.isAdmin())
-			setSize(1000, 450);
+			setSize(1025, 450);
 		else
-			setSize(710, 450);
+			setSize(755, 410);
 
 	}
 
