@@ -1,9 +1,15 @@
 package Server.User;
 
+import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.Vector;
 
+import Serialization.SerializeManager;
 import Server.User.UserDescription.Roles;
-
+import Server.User.UserDescription;
+import Server.ServerStart;
+import Server.Communication.*;
+import Server.Communication.Request.Requests;
 
 
 public class UserRepository{
@@ -31,13 +37,13 @@ public class UserRepository{
 	
 	
 	public static void setupUsers(){
-		addUser(new UserDescription(Roles.ADMINISTRATOR, "admin", "admin", "Andrey"));
+		addUser(new UserDescription(Roles.ADMIN, "admin", "admin", "Andrey"));
 		addUser(new UserDescription(Roles.USER, "user1", "user1", "Roman"));
 		addUser(new UserDescription(Roles.USER, "user2", "user2", "Dmitriy"));
 		addUser(new UserDescription(Roles.USER, "user3", "user3", "Tatsiana"));
 		addUser(new UserDescription(Roles.GUEST, "guest1", "guest1", "Mihail"));
 		addUser(new UserDescription(Roles.GUEST, "guest2", "guest2", "Timofey"));
-		//new Serialization.SerializeManager<Hashtable<String, UserDescription>>().save(getHt(), getXmlFileName());
+		new Serialization.SerializeManager<Hashtable<String, UserDescription>>().save(getHt(), getXmlFileName());
 	}
 	
 	public static String getXmlFileName(){
@@ -46,5 +52,41 @@ public class UserRepository{
 	
 	public static Hashtable<String, UserDescription>getHt(){
 		return ht;
+	}
+	
+	/**
+	 * Gets the all.
+	 *
+	 * @return the all
+	 */
+	public static Response getAll() {
+		Enumeration<UserDescription> files = ht.elements();
+		Vector<UserDescription> users = new Vector<UserDescription>();
+		while (files.hasMoreElements()) {
+			users.addElement(files.nextElement());
+		}
+		ServerStart.loggerServer.info(new String("Request to get all users is served"));
+		Response responce = new Response(Requests.SHOW_USERS, null, null, true);
+		responce.setUsers(users);
+		return responce;
+	}
+
+	/**
+	 * Change users.
+	 *
+	 * @param users
+	 *            the users
+	 * @return the response
+	 */
+	public static Response changeUsers(Vector<UserDescription> users) {
+		ht.get(users.get(0).getLogin()).setRole(users.get(0).getRole());
+		Response responce = new Response(Requests.CHANGE_USERS, null, null, true);
+		return responce;
+	}
+	/**
+	 * Load data.
+	 */
+	public static void loadData() {
+		ht = new SerializeManager<Hashtable<String, UserDescription>>().load(ht, getXmlFileName());
 	}
 }

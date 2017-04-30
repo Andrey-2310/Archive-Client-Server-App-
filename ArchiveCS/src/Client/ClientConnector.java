@@ -5,7 +5,10 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
+import java.util.Vector;
 
+import Server.Communication.*;
+import Server.Communication.Request.Requests;
 
 public class ClientConnector {
 
@@ -27,17 +30,22 @@ public class ClientConnector {
 	/** The password. */
 	private String password;
 
+	/** The response. from the server */
+	private Response response;
+
+	private Vector<Request> preRequests=new Vector<Request>();
+
 	/** True if the logged in user is admin. */
-	private boolean isAdmin = false;
+	boolean isAdmin = false;
 
 	/** True if the logged in user is guest. */
-	private boolean isGuest = false;
-	
+	boolean isGuest = false;
+
 	/** True if the logged in user is user. */
-	private boolean isUser = false;
-	
-	private Socket socket;	
-	
+	boolean isUser = false;
+
+	private Socket socket;
+
 	public ClientConnector(String login, String password) {
 		super();
 
@@ -47,7 +55,7 @@ public class ClientConnector {
 		this.login = login;
 		this.password = password;
 	}
-	
+
 	/**
 	 * Writes request to the server and sends it
 	 *
@@ -85,11 +93,24 @@ public class ClientConnector {
 		}
 		return new Serialization.SerializeManager<T>().deserialize(serializedObj, field);
 	}
-	
+
+	public Response setNewRequest(Request request) {
+		if (!socket.isConnected()) {
+			return null;
+		}
+		write(request);
+
+		if (request.getRequest() != Requests.EXIT) {
+			response = read(response);
+			return response;
+		} else
+			return null;
+	}
+
 	public String setConnection() {
 		try {
 			InetAddress ipAddress = InetAddress.getByName(address);
-			//@SuppressWarnings("resource")
+			// @SuppressWarnings("resource")
 			socket = new Socket(ipAddress, serverPort);
 
 			in = new DataInputStream(socket.getInputStream());
@@ -101,32 +122,46 @@ public class ClientConnector {
 
 		write(login);
 
-
-		Integer pswd = new Integer( password.hashCode()   );  // + rnd);
+		Integer pswd = new Integer(password.hashCode());
 		write(pswd);
 
-		
 		String authorization = new String();
-		String userName=null;
 		authorization = read(authorization);
 		System.out.println(authorization);
 		if (authorization.equals("wrong user")) {
 			return null;
 		} else if (authorization.equals("admin")) {
 			isAdmin = true;
-			userName=read(userName);
-			return userName;
+
 		} else if (authorization.equals("guest")) {
 			isGuest = true;
-			userName=read(userName);
-			return userName;
+
+		} else if (authorization.equals("user")) {
+			isUser = true;
+
 		}
-		 else if (authorization.equals("user")) {
-				isUser = true;
-				userName=read(userName);
-				return userName;
-		 }
-		return null;
+		return authorization;
 	}
 
+	public boolean isGuest() {
+		return isGuest;
+	}
+
+	public boolean isAdmin() {
+		return isAdmin;
+	}
+
+	public boolean isUser() {
+		return isUser;
+	}
+
+	public Request popLastRequest(){
+		if(preRequests.isEmpty())
+			return null;
+		return preRequests.remove(preRequests.size()-1);
+	}
+	public void pushRequest(Request request){
+		preRequests.add(request);
+	}
+	
 }

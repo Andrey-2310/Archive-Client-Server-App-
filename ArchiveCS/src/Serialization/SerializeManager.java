@@ -81,7 +81,7 @@ public class SerializeManager<T> {
 	 */
 	public boolean save(T t, String fileName) {
 
-		XStream xs = new XStream(new StaxDriver());
+		XStream xs = new XStream(new DomDriver());
 		try {
 
 			FileOutputStream fs = new FileOutputStream(new String("Catalog\\" + fileName + ".zip"));
@@ -117,7 +117,7 @@ public class SerializeManager<T> {
 	@SuppressWarnings("unchecked")
 	public T load(T t, String fileName) {
 		try {
-			XStream xs = new XStream(new StaxDriver());
+			XStream xs = new XStream(new DomDriver());
 			FileInputStream fis = new FileInputStream(new String("Catalog\\" + fileName + ".zip"));
 			ZipInputStream zin = new ZipInputStream(fis);
 			ZipEntry entry;
@@ -125,7 +125,7 @@ public class SerializeManager<T> {
 				zin.closeEntry();
 				while ((entry = zin.getNextEntry()) != null) {
 					if (entry.getName().equals((new String(fileName + ".xml")))) {
-						t = (T) xs.fromXML(zin, t);
+						t=(T)xs.fromXML(zin, t);
 						break;
 					}
 				}

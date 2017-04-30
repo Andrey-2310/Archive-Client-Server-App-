@@ -64,13 +64,13 @@ public class ClientStartWindow extends Shell {
 			public void widgetSelected(SelectionEvent e) {
 				// connecting to the server
 				connector = new ClientConnector(text.getText(), text_1.getText());
-				String[] userName={connector.setConnection()};
-				if (userName[0]==null) {
+				String userRole=connector.setConnection();
+				if (userRole==null) {
 					//Platform.exit();
 					System.exit(0);
 				}
 				display.close();
-				ClientWorkingWindow.main(userName);
+				ClientWorkingWindow.workingWindowStart(userRole, connector);
 				
 			}
 		});
@@ -91,14 +91,14 @@ public class ClientStartWindow extends Shell {
 		
 		Label lblNewLabel = new Label(this, SWT.NONE);
 		lblNewLabel.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_DARK_SHADOW));
+		lblNewLabel.setForeground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 		lblNewLabel.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
 		lblNewLabel.setBounds(117, 73, 94, 21);
 		lblNewLabel.setText("       Login");
 		
 		Label lblPassword = new Label(this, SWT.NONE);
 		lblPassword.setFont(SWTResourceManager.getFont("Segoe UI", 11, SWT.NORMAL));
-		lblPassword.setForeground(SWTResourceManager.getColor(SWT.COLOR_WIDGET_DARK_SHADOW));
+		lblPassword.setForeground(SWTResourceManager.getColor(SWT.COLOR_LIST_BACKGROUND));
 		lblPassword.setBackground(SWTResourceManager.getColor(SWT.COLOR_BLACK));
 		lblPassword.setBounds(117, 116, 94, 21);
 		lblPassword.setText("    Password");

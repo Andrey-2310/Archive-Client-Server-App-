@@ -8,7 +8,7 @@ public class UserDescription {
 	public static enum Roles {
 		
  /** The administrator. */
-	ADMINISTRATOR, 
+	ADMIN, 
  /** The user. */
 	USER, 
  /** The guest. */

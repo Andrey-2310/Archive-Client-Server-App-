@@ -5,8 +5,9 @@ import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
+import Server.Communication.NewThreadCommunication;
 import Server.User.UserRepository;
-
+import Person.Person;
 
 public class ServerStart {
 	
@@ -17,7 +18,8 @@ public class ServerStart {
 		public static void main(String args[]) {
 			ServerSocket ss = null;
 			Socket socket = null;
-			UserRepository.setupUsers();
+		//	UserRepository.setupUsers();
+		//	Person.setUpPersons();
 			// new IsClientAlive();
 			try {
 
@@ -26,8 +28,9 @@ public class ServerStart {
 				e.printStackTrace();
 
 			}
-			//Users.loadData();
-			//Cataloger.loadData();
+			UserRepository.loadData();
+			Cataloguer.loadData();
+		//	Cataloguer.getAll();
 			System.out.println("Vse Norm");
 			while (true) {
 				try {
