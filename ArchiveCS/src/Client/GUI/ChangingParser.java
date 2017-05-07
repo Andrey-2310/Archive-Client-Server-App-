@@ -1,4 +1,4 @@
-package Client.GUI;
+package client.gui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -7,10 +7,9 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import Client.ClientConnector;
-import Server.ServerStart;
-import Server.Communication.Request;
-import Server.Communication.Request.Requests;
+import client.ClientConnector;
+import general.Request;
+import general.Request.Requests;
 
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
@@ -60,9 +59,9 @@ public class ChangingParser extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "SAX", null, null)).isSuccess())
-					ServerStart.loggerServer.info(new String("Changing Parser  to SAX succeeded"));
+					ClientConnector.loggerClient.info(new String("Changing Parser  to SAX succeeded"));
 				else 
-					ServerStart.loggerServer.info(new String("Changing Parser to SAX didn't succeed"));
+					ClientConnector.loggerClient.info(new String("Changing Parser to SAX didn't succeed"));
 				getShell().close();
 			}
 		});
@@ -75,9 +74,9 @@ public class ChangingParser extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "StAX", null, null)).isSuccess())
-					ServerStart.loggerServer.info(new String("Changing Parser  to StAX succeeded"));
+					ClientConnector.loggerClient.info(new String("Changing Parser  to StAX succeeded"));
 				else 
-					ServerStart.loggerServer.info(new String("Changing Parser to StAX didn't succeed"));
+					ClientConnector.loggerClient.info(new String("Changing Parser to StAX didn't succeed"));
 				getShell().close();
 			}
 		});
@@ -90,9 +89,9 @@ public class ChangingParser extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "DOM", null, null)).isSuccess())
-					ServerStart.loggerServer.info(new String("Changing Parser  to DOM succeeded"));
+					ClientConnector.loggerClient.info(new String("Changing Parser  to DOM succeeded"));
 				else 
-					ServerStart.loggerServer.info(new String("Changing Parser to DOM didn't succeed"));
+					ClientConnector.loggerClient.info(new String("Changing Parser to DOM didn't succeed"));
 				getShell().close();
 			}
 		});
@@ -105,9 +104,9 @@ public class ChangingParser extends Shell {
 			@Override
 			public void widgetSelected(SelectionEvent e) {
 				if(connector.setNewRequest(new Request(Requests.CHANGE_PARSER, "JDOM", null, null)).isSuccess())
-					ServerStart.loggerServer.info(new String("Changing Parser  to JDOM succeeded"));
+					ClientConnector.loggerClient.info(new String("Changing Parser  to JDOM succeeded"));
 				else 
-					ServerStart.loggerServer.info(new String("Changing Parser to JDOM didn't succeed"));
+					ClientConnector.loggerClient.info(new String("Changing Parser to JDOM didn't succeed"));
 				getShell().close();
 			}
 		});

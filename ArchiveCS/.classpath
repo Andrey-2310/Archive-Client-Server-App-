@@ -12,5 +12,6 @@
 	<classpathentry kind="lib" path="C:/Program Files/Java/JARs/xstream-hibernate-1.4.9.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/JARs/xstream-jmh-1.4.9.jar"/>
 	<classpathentry kind="lib" path="C:/Program Files/Java/JARs/jdom-2.0.6.jar"/>
+	<classpathentry kind="lib" path="C:/Program Files/Java/JARs/junit-4.10.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -5,9 +5,9 @@ import java.net.Socket;
 
 import org.apache.log4j.Logger;
 
-import Server.Communication.NewThreadCommunication;
-import Server.User.UserRepository;
-import Person.Person;
+import Server.communication.NewThreadCommunication;
+import general.person.Person;
+import general.user.UserRepository;
 
 public class ServerStart {
 	
@@ -19,7 +19,7 @@ public class ServerStart {
 			ServerSocket ss = null;
 			Socket socket = null;
 		//	UserRepository.setupUsers();
-		//	Person.setUpPersons();
+		//	Cataloguer.setUpPersons();
 			// new IsClientAlive();
 			try {
 

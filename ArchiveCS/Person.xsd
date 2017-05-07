@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+   
+    <xsd:element name="general.person.Person">
+		<xsd:complexType>
+			<xsd:sequence>
+        <xsd:element name="personJob" type="PersonJob" minOccurs="1" maxOccurs="1"/>
+        <xsd:element name="personInfo" type="PersonInfo" minOccurs="1" maxOccurs="1"/>
+      </xsd:sequence>   
+		</xsd:complexType>
+	</xsd:element>
+
+  <xsd:complexType name="PersonJob">
+    <xsd:sequence>
+      <xsd:element name="employer" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="experience" type="EXP" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="position" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+
+
+
+  <xsd:complexType name="PersonInfo">
+    <xsd:sequence>
+      <xsd:element name="surname" type="Surname" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="name" type="Name" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="fathername" type="Fathername" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="phone" type="xsd:string" minOccurs="1" maxOccurs="1"/>
+      <xsd:element name="email" type="xsd:string" minOccurs="1" maxOccurs="1" />
+      <xsd:element name="sex" type="SEX" minOccurs="1" maxOccurs="1"/>
+    </xsd:sequence>
+  </xsd:complexType>
+    
+      
+  <xsd:simpleType name="EXP">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="[0-9]{1,2}"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="SEX">
+    <xsd:restriction base="xsd:string">
+     <xsd:enumeration value="Man"></xsd:enumeration>
+       <xsd:enumeration value="Woman"></xsd:enumeration>
+   </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="Surname">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([a-zA-Z])*"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="Name">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([a-zA-Z])*"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="Fathername">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="([a-zA-Z])*"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+</xsd:schema>

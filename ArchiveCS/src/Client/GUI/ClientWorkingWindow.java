@@ -1,25 +1,19 @@
-package Client.GUI;
+package client.gui;
 
 import java.util.Vector;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Shell;
-
 import org.eclipse.swt.widgets.Table;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import Client.ClientConnector;
-import Person.Person;
-import Server.Communication.Request;
-import Server.Communication.Request.Requests;
-import Server.Communication.Response;
-import Server.User.UserDescription;
+import client.ClientConnector;
+import general.person.Person;
+import general.user.UserDescription;
+import general.Request;
+import general.Response;
+import general.Request.Requests;
 
 import org.eclipse.swt.widgets.Text;
 
@@ -257,7 +251,7 @@ public class ClientWorkingWindow extends Shell {
 			}
 		});
 
-		Image image = new Image(display, "refresh.png");
+		Image image = new Image(display, "D:\\уник\\КПП\\ArchiveCS\\refresh.png");
 		Button btnNewButton_5 = new Button(composite, SWT.NONE);
 		btnNewButton_5.setBounds(27, 317, 38, 25);
 		btnNewButton_5.setImage(image);
@@ -268,7 +262,7 @@ public class ClientWorkingWindow extends Shell {
 			}
 		});
 
-		Image image1 = new Image(display, "left.png");
+		Image image1 = new Image(display, "D:\\уник\\КПП\\ArchiveCS\\left.png");
 		Button btnNewButton_6 = new Button(composite, SWT.NONE);
 		btnNewButton_6.setImage(image1);
 		btnNewButton_6.setBounds(463, 317, 53, 25);

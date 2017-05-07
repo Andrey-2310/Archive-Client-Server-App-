@@ -1,4 +1,4 @@
-package Client.GUI;
+package client.gui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -11,8 +11,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import Client.ClientConnector;
-import Server.User.UserRepository;
+import client.ClientConnector;
 
 public class ClientStartWindow extends Shell {
 	private Text text;
@@ -72,6 +71,7 @@ public class ClientStartWindow extends Shell {
 					System.exit(0);
 				}
 				if (userRole.equalsIgnoreCase("Wrong User")) {
+					ClientConnector.loggerClient.info("Login or password is incorrect");
 					text.setText("");
 					text_1.setText("");
 

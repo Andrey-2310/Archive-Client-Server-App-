@@ -1,8 +1,7 @@
-package Client.GUI;
+package client.gui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Text;
@@ -10,16 +9,14 @@ import org.eclipse.swt.custom.CCombo;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Listener;
-import org.eclipse.swt.widgets.MessageBox;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import Client.ClientConnector;
-import Person.Person;
-import Server.Communication.Request;
-import Server.Communication.Request.Requests;
-import Server.Communication.Response;
+import client.ClientConnector;
+import general.person.Person;
+import general.Request;
+import general.Response;
+import general.Request.Requests;
 
 public class NewPerson extends Shell {
 	Request request;

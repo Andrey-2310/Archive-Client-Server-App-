@@ -1,4 +1,4 @@
-package Client.GUI;
+package client.gui;
 
 
 import org.eclipse.swt.SWT;
@@ -9,18 +9,14 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.SelectionListener;
-import org.eclipse.swt.graphics.Color;
-import org.eclipse.swt.graphics.Device;
+
 import org.eclipse.wb.swt.SWTResourceManager;
 
-import Client.ClientConnector;
-import Person.Person;
-import Server.Communication.Request;
-import Server.Communication.Request.Requests;
-import Server.Communication.Response;
-import Server.User.UserDescription;
-
+import client.ClientConnector;
+import general.user.UserDescription;
+import general.Request;
+import general.Response;
+import general.Request.Requests;
 
 public class ChangeUser extends Shell {
 

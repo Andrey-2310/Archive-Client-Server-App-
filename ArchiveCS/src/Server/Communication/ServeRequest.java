@@ -1,8 +1,9 @@
-package Server.Communication;
+package Server.communication;
 
-import Server.User.UserRepository;
 import Server.Cataloguer;
-import Server.Communication.*;
+import general.user.UserRepository;
+import general.Request;
+import general.Response;
 
 /**
  * The Class ServeRequest handles with requests from client.
@@ -31,6 +32,7 @@ public class ServeRequest {
 	 * @throws IllegalArgumentException
 	 *             the illegal argument exception
 	 */
+	
 	public Response serveRequest() throws IllegalArgumentException {
 		Response response = null;
 		switch (request.getRequest()) {

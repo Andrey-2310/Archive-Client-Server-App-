@@ -1,4 +1,4 @@
-package Server.Communication;
+package Server.communication;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -8,12 +8,11 @@ import java.util.Random;
 import java.util.Vector;
 
 import Server.ServerStart;
-import Server.User.UserDescription;
-import Server.User.UserDescription.Roles;
-import Server.User.UserRepository;
-
-import Server.Communication.Request;
-import Server.Communication.Response;
+import general.user.UserDescription;
+import general.user.UserRepository;
+import general.user.UserDescription.Roles;
+import general.Request;
+import general.Response;
 
 
 /**
@@ -135,7 +134,7 @@ public class NewThreadCommunication implements Runnable {
 	 *            the t
 	 */
 	private <T> void write(T t) {
-		String serializedObj = new Serialization.SerializeManager<T>().serialize(t);
+		String serializedObj = new general.serialization.SerializeManager<T>().serialize(t);
 		try {
 			out.writeUTF(serializedObj);
 			out.flush();
@@ -161,7 +160,7 @@ public class NewThreadCommunication implements Runnable {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Serialization.SerializeManager<T>().deserialize(serializedObj, field);
+		return new general.serialization.SerializeManager<T>().deserialize(serializedObj, field);
 	}
 
 	/**

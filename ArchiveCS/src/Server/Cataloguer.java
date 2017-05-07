@@ -4,16 +4,17 @@ import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.Vector;
 
-import ParsersXML.LoadData;
-import ParsersXML.UsedParses;
-import ParsersXML.Parsers.DOMParser;
-import ParsersXML.Parsers.JDOMParser;
-import ParsersXML.Parsers.SAXParser;
-import ParsersXML.Parsers.StAXParser;
-import Person.Person;
-import Serialization.SerializeManager;
-import Server.Communication.Request.Requests;
-import Server.Communication.Response;
+import Server.ParsingXML.parsers.DOMParser;
+import Server.ParsingXML.parsers.JDOMParser;
+import Server.ParsingXML.parsers.SAXParser;
+import Server.ParsingXML.parsers.StAXParser;
+import Server.ParsingXML.LoadData;
+import Server.ParsingXML.UsedParses;
+import Server.ParsingXML.Validator;
+import general.person.Person;
+import general.serialization.SerializeManager;
+import general.Response;
+import general.Request.Requests;
 
 /**
  * The Class Cataloger. Used as a DAO layer between xml storage of an archive
@@ -50,16 +51,19 @@ public class Cataloguer {
 	 * @return the response
 	 */
 	public static Response add(Person person) {
-		htNameSurname.put(new String("" + person.getName() + person.getSurname()), person.getXmlFileName());
-		htEmail.put(person.getEmail(), person.getXmlFileName());
-		htPhone.put(person.getPhone(), person.getXmlFileName());
-		// if (validate(person))
-		new SerializeManager<Person>().save(person, person.getXmlFileName());
-
-		ServerStart.loggerServer
-				.info(new String("Client " + person.getSurname() + " " + person.getName() + " was succesfully added"));
-		saveData();
-		return new Response(Requests.ADD, null, null, true);
+		if (validate(person)) {
+			htNameSurname.put(new String("" + person.getName() + person.getSurname()), person.getXmlFileName());
+			htEmail.put(person.getEmail(), person.getXmlFileName());
+			htPhone.put(person.getPhone(), person.getXmlFileName());
+			new SerializeManager<Person>().save(person, person.getXmlFileName());
+			ServerStart.loggerServer.info(
+					new String("Client " + person.getSurname() + " " + person.getName() + " was succesfully added"));
+			saveData();
+			return new Response(Requests.ADD, null, null, true);
+		}
+		ServerStart.loggerServer.info(
+				new String("Client " + person.getSurname() + " " + person.getName() + " wasn't added"));
+		return new Response(Requests.ADD, null, null, false);
 	}
 
 	/**
@@ -72,11 +76,13 @@ public class Cataloguer {
 	private static boolean validate(Person person) {
 		String s = new String();
 		s = new SerializeManager<Person>().serialize(person);
-		/*
-		 * if (!Validator.validate(s)) { ServerStart.loggerServer.error( new
-		 * String("Validation of a document " + person.getName() +
-		 * person.getSurname() + " failed")); return false; }
-		 */
+
+		if (!Validator.validate(s)) {
+			ServerStart.loggerServer.error(
+					new String("Validation of a document " + person.getName() + person.getSurname() + " failed"));
+			return false;
+		}
+
 		ServerStart.loggerServer
 				.info(new String("Document " + person.getName() + person.getSurname() + " validated successfully"));
 		return true;
@@ -299,5 +305,15 @@ public class Cataloguer {
 			return new Response(Requests.CHANGE_PARSER, null, null, false);
 		}
 		return new Response(Requests.CHANGE_PARSER, null, null, true);
+	}
+	
+	public static void setUpPersons() {
+		add(new Person("Redkoskiy", "Andrey", "Dmitrievich", "+375291974714", "redkovskiyandrey@gmail.com",
+				"EPAM", "2", "Developer", "Man"));
+		add(new Person("Trusevich", "Valentin", "Sergeevich", "+375298573010", "vtrusevich@gmail.com", "OOO",
+				"2", "Security", "Man"));
+		add(new Person("Karachun", "Anton", "Antonovich", "+3752911122330", "tonymontana@tut.by", "BSUIR",
+				"2", "Student", "Man"));
+
 	}
 }

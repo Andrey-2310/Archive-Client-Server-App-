@@ -1,4 +1,4 @@
-package Client;
+package client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -7,8 +7,12 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Vector;
 
-import Server.Communication.*;
-import Server.Communication.Request.Requests;
+import org.apache.log4j.Logger;
+
+import general.serialization.SerializeManager;
+import general.Request;
+import general.Response;
+import general.Request.Requests;
 
 public class ClientConnector {
 
@@ -45,6 +49,8 @@ public class ClientConnector {
 	boolean isUser = false;
 
 	private Socket socket;
+	
+	public final static Logger loggerClient = Logger.getLogger(ClientConnector.class);
 
 	public ClientConnector(String login, String password) {
 		super();
@@ -65,7 +71,7 @@ public class ClientConnector {
 	 *            the data to send
 	 */
 	private <T> void write(T t) {
-		String serializedObj = new Serialization.SerializeManager<T>().serialize(t);
+		String serializedObj = new SerializeManager<T>().serialize(t);
 		try {
 			out.writeUTF(serializedObj);
 			out.flush();
@@ -91,7 +97,7 @@ public class ClientConnector {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return new Serialization.SerializeManager<T>().deserialize(serializedObj, field);
+		return new SerializeManager<T>().deserialize(serializedObj, field);
 	}
 
 	public Response setNewRequest(Request request) {
